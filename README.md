@@ -1,53 +1,61 @@
-🎵 Console Audio Tracker
-A high-performance .NET console application that provides real-time visual progress and dynamic auditory feedback using linear frequency scaling.
-✨ Features
-Dynamic Pitch Scaling: Uses Console.Beep logic to increase frequency as tasks progress.
-Sanitized Architecture: Built to use environment variables to prevent sensitive data leaks.
-Lightweight: Zero external dependencies; runs directly on the .NET runtime.
-Process Management: Includes dedicated scripts to safely terminate the application.
-🛠 Installation
-Prerequisites
-.NET 6.0 SDK or newer.
-Windows OS (Required for Console.Beep frequency support).
-Setup
-Clone the Repository
-bash
+# 🚀 Console Audio Tracker
+
+A sleek **.NET** utility providing real-time task tracking with **dynamic audio feedback**. It uses linear frequency scaling to give you an eyes-free status update on background processes.
+
+---
+
+## 💎 Features
+*   🔊 **Dynamic Pitch**: Audio frequency shifts (`800Hz + idx * 100`) as tasks progress.
+*   🛡️ **Leak Protection**: Uses Environment Variables to keep API keys off GitHub.
+*   ⚡ **Zero Bloat**: No external dependencies.
+*   🛑 **Process Control**: Includes a "Kill Switch" script for safety.
+
+---
+
+## 🛠️ Installation & Setup
+
+### 1. Prerequisites
+*   [.NET SDK](https://microsoft.com)
+*   Windows OS (for `Console.Beep` frequency support)
+
+### 2. Setup
+```bash
 git clone https://github.com
-cd console-audio-tracker
-Use code with caution.
-Configure Environment Variables
-This app requires an API Key stored locally. Do not hardcode this.
-PowerShell: $env:APP_SECRET_KEY="your_value_here"
-CMD: set APP_SECRET_KEY=your_value_here
-Build the App
-bash
-dotnet build --configuration Release
-Use code with caution.
-🚀 Usage
-Run the application using the .NET CLI:
-bash
-dotnet run
-Use code with caution.
-Audio Logic
-The application calculates sound frequency based on the current loop index:
-Frequency = 800 + (index * 100) Hz
-This creates a rising "siren" effect to signal task completion.
-🔒 Security & Privacy
-To keep this repository safe for public contribution:
-Environment Variables: All credentials must be loaded via Environment.GetEnvironmentVariable.
-GitIgnore: The .gitignore file is configured to block bin/, obj/, and .user files.
-No Hardcoding: Never commit actual keys or personal file paths to the source code.
-🛑 How to Stop the Program
-If the program enters an infinite loop or you need to force-stop:
-Keyboard Shortcut: Press Ctrl + C in the terminal.
-Kill Script: Run the included kill_app.bat file in the root directory:
-bash
-./kill_app.bat
-Use code with caution.
-📂 Project Structure
-Program.cs - Main application logic.
-kill_app.bat - Force-terminate script.
-.gitignore - Prevents sensitive file uploads.
-README.md - Documentation (this file).
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+cd repo-name
+dotnet build -c Release
+```
+
+### 3. Security Config
+* Set your secret key in your terminal before running:
+*  $env:MY_APP_SECRET = "your_private_value_here"
+
+## 🚀 Usage
+* dotnet run
+
+### 🛑 Emergency Stop
+* If the application hangs, run the included kill script:
+* Double-click kill_app.bat
+* Or press Ctrl + C in the terminal.
+
+### 📂 Project Structure
+* Program.cs: Main logic & sanitized loop.
+* kill_app.bat: Force-kill script.
+* .gitignore: Prevents leaking bin/ and obj/ folders.
+
+---
+
+### 3. `kill_app.bat`
+A failsafe to stop the program instantly.
+
+```batch
+@echo off
+set APP_NAME=YourProjectName.exe
+echo Attempting to terminate %APP_NAME%...
+taskkill /F /IM %APP_NAME% /T
+if %ERRORLEVEL% EQU 0 (
+    echo [SUCCESS] Process terminated.
+) else (
+    echo [ERROR] Process not found or already closed.
+)
+pause
+```
